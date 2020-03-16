@@ -75,8 +75,8 @@ function* loginFlow (id, password) {
     // set a stringified version of our token to localstorage on our domain
     localStorage.setItem('token', token)
 
-    // redirect them to WIDGETS!
-    browserHistory.push('/widgets')
+    // redirect them to MISSIONS!
+    browserHistory.push('/missions')
   } catch (error) {
     // error? send it to redux
     yield put({ type: LOGIN_ERROR, error })

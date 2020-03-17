@@ -21,6 +21,7 @@ const reducer = function signupReducer (state = initialState, action) {
         errors: [],
       }
 
+
     case SIGNUP_SUCCESS:
       return {
         errors: [],

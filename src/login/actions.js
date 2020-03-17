@@ -10,6 +10,4 @@ const loginRequest = function loginRequest ({ id, password }) {
     password,
   }
 }
-
-
 export default loginRequest

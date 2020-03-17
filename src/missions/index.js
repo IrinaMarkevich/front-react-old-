@@ -1,10 +1,13 @@
 import React, { Component, PropTypes } from 'react'
 import { reduxForm, Field } from 'redux-form'
 import { connect } from 'react-redux'
+
 import { Link } from 'react-router'
+
 
 import Messages from '../notifications/Messages'
 import Errors from '../notifications/Errors'
+
 
 import { missionCreate, missionRequest } from './actions'
 
@@ -80,6 +83,7 @@ class Missions extends Component {
         errors,
       },
     } = this.props
+
 
     return (
       <div className="widget">
@@ -173,6 +177,7 @@ class Missions extends Component {
                     </td>
                     <td>
                       {`${mission.status}`}
+
                     </td>
                     <td>
                       {`${mission.result}`}
@@ -180,7 +185,6 @@ class Missions extends Component {
                     <td>
                       {`${mission.time}`}
                     </td>
-
                   </tr>
                 ))
               )}
@@ -188,6 +192,7 @@ class Missions extends Component {
           </table>
 
           {/* <button onClick={this.fetchMissions}>Refetch Missions!</button> */}
+
         </div>
       </div>
     )

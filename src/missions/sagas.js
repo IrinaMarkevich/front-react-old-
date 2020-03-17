@@ -1,7 +1,6 @@
 import { call, put, takeLatest } from 'redux-saga/effects'
 import { handleApiErrors } from '../lib/api-errors'
 
-
 import {
   MISSION_CREATING,
   MISSION_REQUESTING,
@@ -18,6 +17,7 @@ const missionsUrl = 'http://localhost:5000'
 const axios = require('axios')
 
 
+
 // function handleRequest (request) {
 //   return request
 //     .then(handleApiErrors)
@@ -30,6 +30,7 @@ function missionCreateApi (client, mission) {
   const urlMission = `${missionsUrl}/mission`
   const param = mission
   param.userId = client.id
+
   return axios({
     method: 'post',
     url: urlMission,
@@ -37,6 +38,7 @@ function missionCreateApi (client, mission) {
       'Content-Type': 'application/json',
 
       Authorization: client.id || undefined,
+
     },
     data: param,
   })
@@ -58,12 +60,16 @@ function* missionCreateFlow (action) {
 }
 
 function missionRequestApi (client) {
+
   const urlMission = `${missionsUrl}/mission/${client.id}`
+
   return axios({
     method: 'get',
     url: urlMission,
   })
+
   .then(response => response.data)
+
   .catch((error) => { throw error })
 }
 
@@ -72,7 +78,9 @@ function* missionRequestFlow (action) {
     const { client } = action
 
     const missions = yield call(missionRequestApi, client)
+
     console.log(missions)
+
 
     yield put(missionRequestSuccess(missions))
   } catch (error) {

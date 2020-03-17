@@ -21,6 +21,7 @@ class Signup extends Component {
     }),
   }
 
+
   submit = (values) => {
     this.props.signupRequest(values)
   }
@@ -119,7 +120,7 @@ class Signup extends Component {
           )}
 
           {!requesting && !successful && (
-            <Link to="/login">Already a Widgeter? Login Here »</Link>
+            <Link to="/login">Already a Register? Login Here »</Link>
           )}
         </div>
       </div>
@@ -127,21 +128,17 @@ class Signup extends Component {
   }
 }
 
-// Grab only the piece of state we need
+
 const mapStateToProps = state => ({
   signup: state.signup,
 })
 
-// Connect our component to redux and attach the `signup` piece
-// of state to our `props` in the component.  Also attach the
-// `signupRequest` action to our `props` as well.
+
 const connected = connect(mapStateToProps, { signupRequest })(Signup)
 
-// Connect our connected component to Redux Form.  It will namespace
-// the form we use in this component as `signup`.
+
 const formed = reduxForm({
   form: 'signup',
 })(connected)
 
-// Export our well formed component!
 export default formed

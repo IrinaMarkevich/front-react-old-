@@ -93,11 +93,11 @@ function* loginWatcher () {
 
     const task = yield fork(loginFlow, id, password)
 
-
     const action = yield take([CLIENT_UNSET, LOGIN_ERROR])
 
 
     if (action.type === CLIENT_UNSET) yield cancel(task)
+
 
 
     yield call(logout)

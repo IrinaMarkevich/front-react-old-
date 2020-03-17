@@ -29,6 +29,7 @@ function* signupFlow (action) {
     const { id, name, password, email, gender, age } = action
 
 
+
     const response = yield call(signupApi, id, name, password, email, gender, age)
 
 

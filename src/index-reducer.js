@@ -6,6 +6,7 @@ import login from './login/reducer'
 import missions from './missions/reducer'
 import tasks from './tasks/reducer'
 
+
 const IndexReducer = combineReducers({
   signup,
   client,
@@ -13,6 +14,7 @@ const IndexReducer = combineReducers({
   form,
   missions,
   tasks,
+
 })
 
 export default IndexReducer

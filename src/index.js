@@ -15,7 +15,7 @@ import Login from './login'
 import Signup from './signup'
 import Missions from './missions'
 import Tasks from './tasks'
-// import Task from './Task'
+
 import './index.css'
 
 
@@ -35,8 +35,6 @@ const store = createStore(
   IndexReducer,
   composeSetup(applyMiddleware(sagaMiddleware)),
 )
-
-
 sagaMiddleware.run(IndexSagas)
 
 ReactDOM.render(
@@ -48,7 +46,7 @@ ReactDOM.render(
         <Route path="/signup" component={Signup} />
         <Route onEnter={checkMissionAuthorization(store)} path="/missions" component={Missions} />
         <Route onEnter={checkMissionAuthorization(store)} path="/missions/:mission_id/tasks" component={Tasks} />
-        {/* <Route onEnter={checkMissionAuthorization(store)} path="/task" component={Task} /> */}
+
       </Route>
     </Router>
   </Provider>,

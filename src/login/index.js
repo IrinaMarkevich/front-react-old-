@@ -61,7 +61,6 @@ class Login extends Component {
           <button action="submit">LOGIN</button>
         </form>
         <div className="auth-messages">
-
           {!requesting && !!errors.length && (
             <Errors message="Failure to login due to:" errors={errors} />
           )}

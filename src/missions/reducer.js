@@ -1,48 +1,48 @@
 import {
-  WIDGET_CREATING,
-  WIDGET_CREATE_SUCCESS,
-  WIDGET_CREATE_ERROR,
-  WIDGET_REQUESTING,
-  WIDGET_REQUEST_SUCCESS,
-  WIDGET_REQUEST_ERROR,
+  MISSION_CREATING,
+  MISSION_CREATE_SUCCESS,
+  MISSION_CREATE_ERROR,
+  MISSION_REQUESTING,
+  MISSION_REQUEST_SUCCESS,
+  MISSION_REQUEST_ERROR,
 } from './constants'
 
 const initialState = {
-  list: [], // where we'll store widgets
+  list: [],
   requesting: false,
   successful: false,
   messages: [],
   errors: [],
 }
 
-const reducer = function widgetReducer (state = initialState, action) {
+const reducer = function missionReducer (state = initialState, action) {
   switch (action.type) {
-    case WIDGET_CREATING:
+    case MISSION_CREATING:
       return {
         ...state,
         requesting: true,
         successful: false,
         messages: [{
-          body: `Widget: ${action.widget.title} being created...`,
+          body: `Mission: ${action.mission.title} being created...`,
           time: new Date(),
         }],
         errors: [],
       }
 
-    // On success include the new widget into our list
-    case WIDGET_CREATE_SUCCESS:
+
+    case MISSION_CREATE_SUCCESS:
       return {
-        list: state.list.concat([action.widget]),
+        list: state.list.concat([action.mission]),
         requesting: false,
         successful: true,
         messages: [{
-          body: `Widget: ${action.widget.title} awesomely created!`,
+          body: `Mission: ${action.mission.title} awesomely created!`,
           time: new Date(),
         }],
         errors: [],
       }
 
-    case WIDGET_CREATE_ERROR:
+    case MISSION_CREATE_ERROR:
       return {
         ...state,
         requesting: false,
@@ -54,31 +54,31 @@ const reducer = function widgetReducer (state = initialState, action) {
         }]),
       }
 
-    case WIDGET_REQUESTING:
+    case MISSION_REQUESTING:
       return {
-        ...state, // ensure that we don't erase fetched ones
+        ...state,
         requesting: false,
         successful: true,
         messages: [{
-          body: 'Fetching widgets...!',
+          body: 'Fetching missions...!',
           time: new Date(),
         }],
         errors: [],
       }
 
-    case WIDGET_REQUEST_SUCCESS:
+    case MISSION_REQUEST_SUCCESS:
       return {
-        list: action.widgets, // replace with fresh list
+        list: action.missions,
         requesting: false,
         successful: true,
         messages: [{
-          body: 'Widgets awesomely fetched!',
+          body: 'Missions awesomely fetched!',
           time: new Date(),
         }],
         errors: [],
       }
 
-    case WIDGET_REQUEST_ERROR:
+    case MISSION_REQUEST_ERROR:
       return {
         requesting: false,
         successful: false,

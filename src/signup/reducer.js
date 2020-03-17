@@ -21,9 +21,6 @@ const reducer = function signupReducer (state = initialState, action) {
         errors: [],
       }
 
-    // reset the state and add a body message of success!
-    // remember our successful returned payload will be:
-    // {"email": "of the new user", "id": "of the user"}
     case SIGNUP_SUCCESS:
       return {
         errors: [],
@@ -35,10 +32,6 @@ const reducer = function signupReducer (state = initialState, action) {
         successful: true,
       }
 
-    // reset the state but with errors!
-    // the error payload returned is actually far
-    // more detailed, but we'll just stick with
-    // the base message for now
     case SIGNUP_ERROR:
       return {
         errors: state.errors.concat([{

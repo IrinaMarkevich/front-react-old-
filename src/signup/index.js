@@ -9,7 +9,7 @@ import Errors from '../notifications/Errors'
 import signupRequest from './actions'
 
 class Signup extends Component {
-  // Pass the correct proptypes in for validation
+
   static propTypes = {
     handleSubmit: PropTypes.func,
     signupRequest: PropTypes.func,
@@ -21,18 +21,12 @@ class Signup extends Component {
     }),
   }
 
-  // Redux Form will call this function with the values of our
-  // Form fields `email` and `password` when the form is submitted
-  // this will in turn call the action
+
   submit = (values) => {
-    // we could just do signupRequest here with the static proptypes
-    // but ESLint doesn't like that very much...
     this.props.signupRequest(values)
   }
 
   render () {
-    // grab what we need from props.  The handleSubmit from ReduxForm
-    // and the pieces of state from the global state.
     const {
       handleSubmit,
       signup: {
@@ -112,13 +106,7 @@ class Signup extends Component {
           <button action="submit">SIGNUP</button>
         </form>
         <div className="auth-messages">
-          {
-            /*
-            These are all nothing more than helpers that will show up
-            based on the UI states, not worth covering in depth.  Simply put
-            if there are messages or errors, we show them
-            */
-          }
+
           {!requesting && !!errors.length && (
             <Errors message="Failure to signup due to:" errors={errors} />
           )}
@@ -130,7 +118,7 @@ class Signup extends Component {
               Signup Successful! <Link to="/login">Click here to Login »</Link>
             </div>
           )}
-          {/* Redux Router's <Link> component for quick navigation of routes */}
+
           {!requesting && !successful && (
             <Link to="/login">Already a Register? Login Here »</Link>
           )}
@@ -140,21 +128,17 @@ class Signup extends Component {
   }
 }
 
-// Grab only the piece of state we need
+
 const mapStateToProps = state => ({
   signup: state.signup,
 })
 
-// Connect our component to redux and attach the `signup` piece
-// of state to our `props` in the component.  Also attach the
-// `signupRequest` action to our `props` as well.
+
 const connected = connect(mapStateToProps, { signupRequest })(Signup)
 
-// Connect our connected component to Redux Form.  It will namespace
-// the form we use in this component as `signup`.
+
 const formed = reduxForm({
   form: 'signup',
 })(connected)
 
-// Export our well formed component!
 export default formed

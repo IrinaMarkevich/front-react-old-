@@ -8,7 +8,7 @@ import {
 } from './constants'
 
 const initialState = {
-  list: [], // where we'll store missions
+  list: [],
   requesting: false,
   successful: false,
   messages: [],
@@ -29,7 +29,7 @@ const reducer = function missionReducer (state = initialState, action) {
         errors: [],
       }
 
-    // On success include the new mission into our list
+
     case MISSION_CREATE_SUCCESS:
       return {
         list: state.list.concat([action.mission]),
@@ -56,7 +56,7 @@ const reducer = function missionReducer (state = initialState, action) {
 
     case MISSION_REQUESTING:
       return {
-        ...state, // ensure that we don't erase fetched ones
+        ...state,
         requesting: false,
         successful: true,
         messages: [{
@@ -68,7 +68,7 @@ const reducer = function missionReducer (state = initialState, action) {
 
     case MISSION_REQUEST_SUCCESS:
       return {
-        list: action.missions, // replace with fresh list
+        list: action.missions,
         requesting: false,
         successful: true,
         messages: [{

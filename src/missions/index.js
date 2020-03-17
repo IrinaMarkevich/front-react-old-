@@ -5,11 +5,9 @@ import { connect } from 'react-redux'
 import Messages from '../notifications/Messages'
 import Errors from '../notifications/Errors'
 
-// include our missionRequest action
+
 import { missionCreate, missionRequest } from './actions'
 
-// Our validation function for `name` field.
-// const nameRequired = value => (value ? undefined : 'Name Required')
 
 class Missions extends Component {
   static propTypes = {
@@ -32,12 +30,11 @@ class Missions extends Component {
   }
   constructor (props) {
     super(props)
-    // call the fetch when the component starts up
+
     this.fetchMissions()
   }
 
-  // the helper function for requesting missions
-  // with our client as the parameter
+
   fetchMissions = () => {
     const { client, missionRequest } = this.props
     return missionRequest(client)
@@ -48,28 +45,20 @@ class Missions extends Component {
 
   submit = (mission) => {
     const { client, missionCreate, reset } = this.props
-    // call to our missionCreate action.
+
     missionCreate(client, mission)
-    // reset the form upon submit.
+
     reset()
   }
 
   renderNameInput = ({ input, type, meta: { touched, error } }) => (
     <div>
-      {/* Spread RF's input properties onto our input */}
+
       <input
         {...input}
         type={type}
       />
-      {/*
-        If the form has been touched AND is in error, show `error`.
-        `error` is the message returned from our validate function above
-        which in this case is `Name Required`.
 
-        `touched` is a live updating property that RF passes in.  It tracks
-        whether or not a field has been "touched" by a user.  This means
-        focused at least once.
-      */}
       {touched && error && (
         <div style={{ color: '#cc7a6f', margin: '-10px 0 15px', fontSize: '0.7rem' }}>
           {error}
@@ -80,11 +69,6 @@ class Missions extends Component {
   )
 
   render () {
-    // pull in all needed props for the view
-    // `invalid` is a value that Redux Form injects
-    // that states whether or not our form is valid/invalid.
-    // This is only relevant if we are using the concept of
-    // `validators` in our form.
     const {
       handleSubmit,
       invalid,
@@ -112,7 +96,7 @@ class Missions extends Component {
               id="id"
               className="number"
               component="input"
-              // validate={nameRequired}
+
             />
 
             <label htmlFor="name">Title</label>
@@ -122,7 +106,7 @@ class Missions extends Component {
               id="title"
               className="name"
               component="input"
-              // validate={nameRequired}
+
             />
             <label htmlFor="status">Status</label>
             <Field
@@ -131,7 +115,7 @@ class Missions extends Component {
               id="status"
               className="name"
               component="input"
-              // validate={nameRequired}
+
             />
 
             <label htmlFor="result">Result</label>
@@ -152,7 +136,7 @@ class Missions extends Component {
               component="input"
             />
 
-            {/* the button will remain disabled until not invalid */}
+
             <button
               disabled={invalid}
               action="submit"
@@ -169,7 +153,7 @@ class Missions extends Component {
             )}
           </div>
         </div>
-        {/* The Mission List Area */}
+
 
         <div className="widget-list">
           <table>
@@ -198,7 +182,7 @@ class Missions extends Component {
               )}
             </tbody>
           </table>
-          {/* A convenience button to refetch on demand */}
+
           <button onClick={this.fetchMissions}>Refetch Missions!</button>
         </div>
       </div>
@@ -206,14 +190,13 @@ class Missions extends Component {
   }
 }
 
-// Pull in both the Client and the Missions state
+
 const mapStateToProps = state => ({
   client: state.client,
   missions: state.missions,
 })
 
-// Make the Client and Missions available in the props as well
-// as the missionCreate() function
+
 const connected = connect(mapStateToProps, { missionCreate, missionRequest })(Missions)
 const formed = reduxForm({
   form: 'missions',

@@ -28,6 +28,8 @@ function* signupFlow (action) {
   try {
     const { id, name, password, email, gender, age } = action
 
+
+
     const response = yield call(signupApi, id, name, password, email, gender, age)
 
 
@@ -36,7 +38,6 @@ function* signupFlow (action) {
     yield put({ type: SIGNUP_ERROR, error })
   }
 }
-
 
 function* signupWatcher () {
   yield takeLatest(SIGNUP_REQUESTING, signupFlow)

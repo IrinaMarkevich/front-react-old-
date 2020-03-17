@@ -1,5 +1,6 @@
 import { call, put, takeLatest } from 'redux-saga/effects'
 import { handleApiErrors } from '../lib/api-errors'
+
 import {
   MISSION_CREATING,
   MISSION_REQUESTING,
@@ -16,17 +17,28 @@ const missionsUrl = 'http://localhost:5000'
 const axios = require('axios')
 
 
+
+// function handleRequest (request) {
+//   return request
+//     .then(handleApiErrors)
+//     .then(response => response.json())
+//     .then(json => json)
+//     .catch((error) => { throw error })
+// }
+
 function missionCreateApi (client, mission) {
   const urlMission = `${missionsUrl}/mission`
   const param = mission
-  param.userId = client.token.user_id
+  param.userId = client.id
+
   return axios({
     method: 'post',
     url: urlMission,
     headers: {
       'Content-Type': 'application/json',
 
-      Authorization: client.token.user_id || undefined,
+      Authorization: client.id || undefined,
+
     },
     data: param,
   })
@@ -48,15 +60,16 @@ function* missionCreateFlow (action) {
 }
 
 function missionRequestApi (client) {
-  const urlMission = `${missionsUrl}/mission/${client.token.user_id}`
-  console.log(urlMission)
+
+  const urlMission = `${missionsUrl}/mission/${client.id}`
+
   return axios({
     method: 'get',
     url: urlMission,
   })
-  .then(handleApiErrors)
+
   .then(response => response.data)
-  .then(json => json)
+
   .catch((error) => { throw error })
 }
 
@@ -65,6 +78,9 @@ function* missionRequestFlow (action) {
     const { client } = action
 
     const missions = yield call(missionRequestApi, client)
+
+    console.log(missions)
+
 
     yield put(missionRequestSuccess(missions))
   } catch (error) {

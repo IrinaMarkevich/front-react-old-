@@ -1,6 +1,5 @@
 import React, { PropTypes } from 'react'
 
-
 const Errors = (props) => {
   const { errors } = props
   return (

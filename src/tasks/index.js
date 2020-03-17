@@ -2,54 +2,47 @@ import React, { Component, PropTypes } from 'react'
 import { reduxForm, Field } from 'redux-form'
 import { connect } from 'react-redux'
 
-import { Link } from 'react-router'
-
-
 import Messages from '../notifications/Messages'
 import Errors from '../notifications/Errors'
 
+import { taskCreate, taskRequest } from './actions'
 
-import { missionCreate, missionRequest } from './actions'
 
-
-class Missions extends Component {
+class Tasks extends Component {
   static propTypes = {
     handleSubmit: PropTypes.func.isRequired,
     invalid: PropTypes.bool.isRequired,
-    client: PropTypes.shape({
-      id: PropTypes.string.isRequired,
-      token: PropTypes.object.isRequired,
-    }),
-    missions: PropTypes.shape({
+    tasks: PropTypes.shape({
       list: PropTypes.array,
       requesting: PropTypes.bool,
       successful: PropTypes.bool,
       messages: PropTypes.array,
       errors: PropTypes.array,
     }).isRequired,
-    missionCreate: PropTypes.func.isRequired,
-    missionRequest: PropTypes.func.isRequired,
+    taskCreate: PropTypes.func.isRequired,
+    taskRequest: PropTypes.func.isRequired,
     reset: PropTypes.func.isRequired,
   }
   constructor (props) {
     super(props)
 
-    this.fetchMissions()
+    this.fetchTasks()
   }
 
 
-  fetchMissions = () => {
-    const { client, missionRequest } = this.props
-    return missionRequest(client)
-    // if (client && client.token) return missionRequest(client)
+  fetchTasks = () => {
+    const { taskRequest } = this.props
+    const missionId = this.props.params.mission_id
+    return taskRequest(missionId)
+    // if (client && client.token) return taskRequest(client)
     // return false
   }
 
 
-  submit = (mission) => {
-    const { client, missionCreate, reset } = this.props
-
-    missionCreate(client, mission)
+  submit = (task) => {
+    const { taskCreate, reset } = this.props
+    const missionId = this.props.params.mission_id
+    taskCreate(missionId, task)
 
     reset()
   }
@@ -75,7 +68,7 @@ class Missions extends Component {
     const {
       handleSubmit,
       invalid,
-      missions: {
+      tasks: {
         list,
         requesting,
         successful,
@@ -84,12 +77,11 @@ class Missions extends Component {
       },
     } = this.props
 
-
     return (
       <div className="widget">
         <div className="widget-form">
           <form onSubmit={handleSubmit(this.submit)}>
-            <h1>CREATE THE MISSION</h1>
+            <h1>CREATE THE TASK</h1>
 
             <label htmlFor="id">Id</label>
             <Field
@@ -146,9 +138,9 @@ class Missions extends Component {
           </form>
           <hr />
           <div className="widget-messages">
-            {requesting && <span>Creating mission...</span>}
+            {requesting && <span>Creating task...</span>}
             {!requesting && !!errors.length && (
-              <Errors message="Failure to create Mission due to:" errors={errors} />
+              <Errors message="Failure to create Task due to:" errors={errors} />
             )}
             {!requesting && successful && !!messages.length && (
               <Messages messages={messages} />
@@ -168,22 +160,19 @@ class Missions extends Component {
             </thead>
             <tbody>
               {list && !!list.length && (
-                list.map(mission => (
-                  <tr key={mission.id}>
+                list.map(task => (
+                  <tr key={task.id}>
                     <td>
-                      <Link to={`/missions/${mission.id}/tasks`} >
-                        <strong>{`${mission.title}`}</strong>
-                      </Link>
+                      <strong>{`${task.title}`}</strong>
                     </td>
                     <td>
-                      {`${mission.status}`}
-
+                      {`${task.status}`}
                     </td>
                     <td>
-                      {`${mission.result}`}
+                      {`${task.result}`}
                     </td>
                     <td>
-                      {`${mission.time}`}
+                      {`${task.time}`}
                     </td>
                   </tr>
                 ))
@@ -191,8 +180,7 @@ class Missions extends Component {
             </tbody>
           </table>
 
-          {/* <button onClick={this.fetchMissions}>Refetch Missions!</button> */}
-
+          {/* <button onClick={this.fetchTasks}>Refetch Tasks!</button> */}
         </div>
       </div>
     )
@@ -202,13 +190,13 @@ class Missions extends Component {
 
 const mapStateToProps = state => ({
   client: state.client,
-  missions: state.missions,
+  tasks: state.tasks,
 })
 
 
-const connected = connect(mapStateToProps, { missionCreate, missionRequest })(Missions)
+const connected = connect(mapStateToProps, { taskCreate, taskRequest })(Tasks)
 const formed = reduxForm({
-  form: 'missions',
+  form: 'tasks',
 })(connected)
 
 export default formed

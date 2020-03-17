@@ -95,7 +95,10 @@ function* loginWatcher () {
 
     const action = yield take([CLIENT_UNSET, LOGIN_ERROR])
 
+
     if (action.type === CLIENT_UNSET) yield cancel(task)
+
+
 
     yield call(logout)
   }

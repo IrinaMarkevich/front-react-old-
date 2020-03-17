@@ -36,6 +36,7 @@ export function checkIndexAuthorization ({ dispatch }) {
 }
 
 export function checkMissionAuthorization ({ dispatch, getState }) {
+
   return (nextState, replace, next) => {
     const client = getState().client
 

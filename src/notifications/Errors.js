@@ -1,7 +1,5 @@
 import React, { PropTypes } from 'react'
 
-// Iterate over each error object and print them
-// in an unordered list
 const Errors = (props) => {
   const { errors } = props
   return (

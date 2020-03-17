@@ -160,7 +160,6 @@ class Missions extends Component {
                 <th>Status</th>
                 <th>Result</th>
                 <th>Time</th>
-                <th>Tasks</th>
               </tr>
             </thead>
             <tbody>
